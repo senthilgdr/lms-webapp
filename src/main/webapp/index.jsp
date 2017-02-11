@@ -38,7 +38,7 @@ if ( employee != null) {
 
 
 						<div class="form-group">
-							<label for="password">PassWord :</label> <input type="password"
+							<label for="password">Password :</label> <input type="password"
 								class="form-control" name="password"
 								placeholder="Enter Password" required="required" id="password">
 						</div>

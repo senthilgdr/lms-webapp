@@ -33,7 +33,7 @@
 					
 			%>
 		<ul class="nav navbar-nav">
-			
+			<li><a href="addLeaveDetail">ApplyLeave</a></li>
 		</ul>
 
 
