@@ -33,8 +33,11 @@
 					
 			%>
 		<ul class="nav navbar-nav">
-			<li><a href="addLeaveDetail">ApplyLeave</a></li>
-			<li><a href="SelectLeaveDetail">My Leaves </a></li>
+			<li><a href="<%=request.getContextPath()%>/addLeaveDetail">ApplyLeave</a></li>
+			<li><a href="<%=request.getContextPath()%>/SelectLeaveDetail">My Leaves </a></li>
+			<% if ( roleName.equals("HR")){ %>			
+			<li><a href="<%=request.getContextPath()%>/SelectPendingLeaves">All Leaves </a></li>
+			<%} %>
 		</ul>
 
 

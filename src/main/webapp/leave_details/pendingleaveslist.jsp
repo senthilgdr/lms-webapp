@@ -14,7 +14,7 @@
 	<jsp:include page="/layout/header.jsp"></jsp:include>
 	<div class="container">
 		<%
-			 List<LeaveDetail> leaveList = (List<LeaveDetail>) request.getAttribute("LEAVE_DETAILS_LIST"); 
+			 List<LeaveDetail> leaveList = (List<LeaveDetail>) request.getAttribute("PENDING_LEAVE_DETAILS_LIST"); 
 					
 		%>
 
@@ -22,7 +22,7 @@
 			<div class="col-md-14">
 				<div class="portlet-title">
 					<div class="page-header">
-						<h4>My Leave Details</h4>
+						<h4> Leave Details for Approval</h4>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -32,6 +32,8 @@
 							<thead>
 								<tr>
 									<th>Sno</th>
+									<th> Employee </th>
+									
 									<th>LeaveType</th>
 									<th>FromDate</th>
 									<th>ToDate</th>
@@ -51,6 +53,7 @@
 								%>
 								<tr>
 									<td><%=i++%></td>
+									<td><%=ld.getEmployee().getName() %></td>
 									<td><%=ld.getLeaveType().getType()%></td>
 									<td><%=ld.getFromDate()%></td>
 									<td><%=ld.getToDate()%></td>
@@ -60,13 +63,19 @@
 									<td><%=ld.getModifiedBy().getName()%></td>
 									<td><%=ld.getModifiedDate()%></td>			
 							
-									<% if ("APPLIED".equals(status) ){ %>
-									<td>
-									<a class='btn btn-danger btn-sm'
-										href="UpdateLeaveDetail?id=<%=ld.getId()%>&status=4">Cancel Leave</a>											
-											</td>
-											<%} %>
-									
+									<% if ("APPLIED".equals(status)){
+										%>
+										<td>
+										<a class='btn btn-success btn-sm'
+											href="ApproveLeaveDetail?id=<%=ld.getId()%>&status=2">Approve Leave</a>											
+								 				</td>
+												<td>
+										
+										<a class='btn btn-danger btn-sm'
+											href="ApproveLeaveDetail?id=<%=ld.getId()%>&status=3">Reject Leave</a>											
+												</td>
+												
+										<%} %>
 									
 								</tr>
 								<%
