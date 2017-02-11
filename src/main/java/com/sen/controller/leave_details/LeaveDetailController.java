@@ -81,6 +81,24 @@ public class LeaveDetailController {
 		}
 
 	}
-	
+	@GetMapping("/SelectLeaveDetail")
+	public String list(ModelMap modelMap,HttpSession session) throws Exception {
+
+		try {
+			Employee employee = (Employee)session.getAttribute("LOGGED_IN_USER");
+			System.out.println("Leave Detail Listed");
+			List<LeaveDetail> list = leaveDetailService.list(employee.getId());
+			System.out.println(list);
+			modelMap.addAttribute("LEAVE_DETAILS_LIST", list);
+
+			return "leave_details/list.jsp";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/home.jsp";
+		}
+	}
+		
 		
 }

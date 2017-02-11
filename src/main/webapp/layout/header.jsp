@@ -34,6 +34,7 @@
 			%>
 		<ul class="nav navbar-nav">
 			<li><a href="addLeaveDetail">ApplyLeave</a></li>
+			<li><a href="SelectLeaveDetail">My Leaves </a></li>
 		</ul>
 
 
