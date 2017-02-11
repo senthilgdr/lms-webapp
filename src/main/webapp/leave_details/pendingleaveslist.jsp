@@ -67,12 +67,12 @@
 										%>
 										<td>
 										<a class='btn btn-success btn-sm'
-											href="ApproveLeaveDetail?id=<%=ld.getId()%>&status=2">Approve Leave</a>											
+											href="UpdateLeaveDetail?id=<%=ld.getId()%>&status=2">Approve Leave</a>											
 								 				</td>
 												<td>
 										
 										<a class='btn btn-danger btn-sm'
-											href="ApproveLeaveDetail?id=<%=ld.getId()%>&status=3">Reject Leave</a>											
+											href="UpdateLeaveDetail?id=<%=ld.getId()%>&status=3">Reject Leave</a>											
 												</td>
 												
 										<%} %>

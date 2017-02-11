@@ -117,13 +117,32 @@ public class LeaveDetailController {
 			return "/home.jsp";
 		}
 	}
+	@GetMapping("/TeamPendingLeaves")
+	public String TeamPendingLeaves(ModelMap modelMap, HttpSession session) throws Exception {
 
-	@GetMapping("/ApproveLeaveDetail")
+		try {
+			Employee employee = (Employee) session.getAttribute("LOGGED_IN_USER");
+			System.out.println("Leave Detail Listed");
+			List<LeaveDetail> list = leaveDetailService.findMyTeamPendingLeaves(employee.getId());
+			System.out.println(list);
+			modelMap.addAttribute("PENDING_LEAVE_DETAILS_LIST", list);
+
+			return "leave_details/pendingleaveslist.jsp";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/home.jsp";
+		}
+	}
+
+	/*@GetMapping("/ApproveLeaveDetail")
 	public String updateStatus(@RequestParam("id") String id, @RequestParam("status") String status, ModelMap modelMap,
 			HttpServletRequest request, HttpSession session) throws Exception {
 
 		try {
-
+			
+			
 			LeaveDetail ld = leaveDetailService.findById(Long.valueOf(id));
 
 			ld.setStatus(leaveStatusService.findById(Long.valueOf(status)));
@@ -139,12 +158,17 @@ public class LeaveDetailController {
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "leave_details/pendingleaveslist.jsp";
 		}
-	}
+	}*/
 
 	@GetMapping("/UpdateLeaveDetail")
 	public String update(@RequestParam("id") String id, @RequestParam("status") String status, ModelMap modelMap,
 			HttpServletRequest request, HttpSession session) throws Exception {
 
+		String refererPage = request.getHeader("Referer");
+		String previousPage = refererPage.substring( refererPage.lastIndexOf("/") +1, refererPage.length());
+		
+		System.out.println("Previous Page:" + previousPage);
+		
 		try {
 
 			LeaveDetail ld = leaveDetailService.findById(Long.valueOf(id));
@@ -156,7 +180,7 @@ public class LeaveDetailController {
 
 			leaveDetailService.update(ld);
 
-			return "redirect:/SelectLeaveDetail";
+			return "redirect:/" + previousPage;
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
