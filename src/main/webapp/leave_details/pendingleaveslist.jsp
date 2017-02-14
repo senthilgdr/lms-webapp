@@ -32,8 +32,7 @@
 							<thead>
 								<tr>
 									<th>Sno</th>
-									<th> Employee </th>
-									
+									<th> Employee </th>									
 									<th>LeaveType</th>
 									<th>FromDate</th>
 									<th>ToDate</th>

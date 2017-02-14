@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import dao.LeaveDetailDAO;
 import model.Employee;
 import model.LeaveDetail;
 import model.LeaveStatus;
@@ -59,10 +58,7 @@ public class LeaveDetailController {
 
 			ld.setNoOfDays(Float.valueOf(noOfDays));
 
-			LeaveStatus findById = leaveStatusService.findById(1L);// Default
-																	// Status :
-																	// 1 -
-																	// Applied
+			LeaveStatus findById = leaveStatusService.findById(1L);// Default Status :  1 - Applied
 			ld.setStatus(findById);
 
 			System.out.println("Add Leave method:" + ld);
