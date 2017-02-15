@@ -7,6 +7,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add Leave Detail</title>
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/dateutil.js"></script>
+<script>
+
+$(document).ready(function(){
+	console.log("Jquery Loaded");	
+	var todayDate= getCurrentDate();
+	$("#fromDate").attr("min",todayDate);
+	$("#toDate").attr("min",todayDate);
+	
+});
+
+function fromDateSelected(){
+	var fromDate = $("#fromDate").val();
+	console.log("FromDateSelected:" + fromDate);
+	$("#toDate").attr("min",fromDate);
+}
+/* $(document).ready(function(){
+	console.log("Jquery Loaded");
+	var date= new Date();
+	var month = parseInt(date.getMonth()+1);
+	var currentMonth = addZeroPrefix(month);
+	var todayDate = date.getFullYear() +"-" + currentMonth+"-" + addZeroPrefix(date.getDate());
+	console.log(todayDate);
+	//$("#fromDate").attr("min","2017-02-15");
+	$("#fromDate").attr("min",todayDate);
+});
+
+function addZeroPrefix(month){
+	var m ="";
+	if ( month <10){
+		m= "0"+ month;
+	}
+	else
+	{
+		m = month;
+	}
+	return m;
+} */
+
+
+</script>
 
 </head>
 <body>
@@ -41,12 +83,12 @@
 						</div>
 						<div class="form-group">
 							<label for="fromDate">From Date:</label><input type="date"
-								class="form-control" name="fromDate" required autofocus
-								id="fromDate">
+								class="form-control" id="fromDate"  name="fromDate" required  autofocus
+								id="fromDate" oninput="fromDateSelected()">
 						</div>
 						<div class="form-group">
 							<label for="toDate">To Date</label><input type="date"
-								class="form-control" name="toDate" required autofocus
+								class="form-control" id="toDate" name="toDate" required autofocus
 								id="toDate">
 						</div>
 						<div class="form-group">
