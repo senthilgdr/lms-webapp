@@ -44,8 +44,7 @@ public class LeaveRoleController {
 
 		try {
 			Employee employee = (Employee) session.getAttribute("LOGGED_IN_USER");
-			System.out.println("Leave Detail Listed");
-			
+						
 			LeaveRole leaveRole = leaveRoleService.findByRoleId(employee.getRole().getId());
 			System.out.println(leaveRole);
 			modelMap.addAttribute("LEAVE_ROLE", leaveRole);

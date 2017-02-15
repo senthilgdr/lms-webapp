@@ -27,10 +27,10 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="table-responsive">
-						<table class="table table-bordered">
+					<div>
+						<table class="table">
 
-							<thead>
+							<thead class="thead-inverse">
 								<tr>
 									<th>S.NO</th>
 									<th>ROLE</th>
@@ -63,7 +63,8 @@
 									<td><%=lr.getPaternity_leave()%></td>
 									<td><%=lr.getPrivileged_leave()%></td>
 									<td><%=lr.getCreatedDate()%></td>
-									<td><%=lr.getModifiedDate() %></td>							
+									<td><%=lr.getModifiedDate() %></td>										
+														
 								</tr>
 								<%}} %>
 							</tbody>

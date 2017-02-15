@@ -28,6 +28,7 @@ public class LeaveDetailController {
 	private LeaveTypeService leaveTypeService = new LeaveTypeService();
 
 	private EmployeeService employeeService = new EmployeeService();
+	
 
 	private LeaveStatusService leaveStatusService = new LeaveStatusService();
 
@@ -160,8 +161,8 @@ public class LeaveDetailController {
 	public String update(@RequestParam("id") String id, @RequestParam("status") String status, ModelMap modelMap,
 			HttpServletRequest request, HttpSession session) throws Exception {
 
-		String refererPage = request.getHeader("Referer");
-		String previousPage = refererPage.substring( refererPage.lastIndexOf("/") +1, refererPage.length());
+		String previousPageUrl = request.getHeader("Referer");
+		String previousPage = previousPageUrl.substring( previousPageUrl.lastIndexOf("/") +1, previousPageUrl.length());
 		
 		System.out.println("Previous Page:" + previousPage);
 		
