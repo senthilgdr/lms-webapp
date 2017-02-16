@@ -50,6 +50,9 @@
 									<td><%=i++%></td>
 									<td><%=holiday.getHolidayDate() %></td>
 									<td><%=holiday.getStatus() %></td>
+									<td><a class='btn btn-success'
+										href="EditHolidayDetail?id=<%=holiday.getId()%>"><span
+											class='icon-pencil'></span>Edit</a></td>
 									<td><a class='btn btn-danger'
 										href="DeleteHolidayDetail?id=<%=holiday.getId()%>"><span
 											class='icon-pencil'></span>Delete</a></td>
