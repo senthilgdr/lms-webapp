@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dao.LeaveDetailDAO;
 import model.Employee;
 import model.LeaveDetail;
 import model.LeaveStatus;
@@ -183,6 +184,61 @@ public class LeaveDetailController {
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "leave_details/list.jsp";
 		}
+	}
+	@GetMapping("/EditLeaveDetail")
+	public String edit( @RequestParam("id") Long id,
+		ModelMap modelMap) throws Exception {
+
+		try {
+			
+			LeaveDetail ld=new LeaveDetailDAO().findById(id);
+			modelMap.addAttribute("EDIT_LEAVE_DETAIL", ld);
+
+			return "leave_details/editLeaveDetail.jsp";
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "leave_details/list.jsp";
+		}
+	
+}
+	@GetMapping("/UpdateAllLeaveDetail")
+	public String updateAll(@RequestParam("id") Long id,@RequestParam("leaveType") Long leaveType, @RequestParam("fromDate") String fromDate,
+			@RequestParam("toDate") String toDate, @RequestParam("noOfDays") String noOfDays, ModelMap modelMap,
+			HttpSession session) throws Exception {
+
+		try {
+
+		
+			LeaveDetail ld = new LeaveDetail();
+			ld.setId(id);
+
+			Employee emp = (Employee) session.getAttribute("LOGGED_IN_USER");
+			ld.setModifiedBy(emp);
+			
+			LeaveType leaveTypeObj = leaveTypeService.findById(leaveType);
+			ld.setLeaveType(leaveTypeObj);
+
+			ld.setFromDate(LocalDate.parse(fromDate));
+			ld.setToDate(LocalDate.parse(toDate));
+
+			ld.setNoOfDays(Float.valueOf(noOfDays));
+
+			LeaveStatus findById = leaveStatusService.findById(1L);// Default Status :  1 - Applied
+			ld.setStatus(findById);
+
+			System.out.println("Update Leave method:" + ld);
+			
+			new LeaveDetailDAO().updateLeaveDetail(ld);
+
+			return "redirect:SelectLeaveDetail?INFO_MESSAGE=Successfully LeaveDetail Updated";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "EditLeaveDetail";
+		}
+
 	}
 
 }

@@ -68,6 +68,10 @@
 											<%} %>
 									
 									
+									<td><a class='btn btn-success'
+										href="EditLeaveDetail?id=<%=ld.getId()%>"><span
+											class='icon-pencil'></span>Edit</a></td>
+												
 								</tr>
 								<%
 									}

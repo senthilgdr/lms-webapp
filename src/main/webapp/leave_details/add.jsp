@@ -67,11 +67,7 @@ function addZeroPrefix(month){
 				<div class="portlet-body">
 					<form id="addLeaveDetailFrm" class="form-horizontal" role="form"
 						method="GET" action="InsertLeaveDetail">
-<!-- 
-						<div class="form-group">
-							<label for="empId">EmpId:</label><input type="text"
-								class="form-control" name="empId" required autofocus id="empId">
-						</div> -->
+
 						<div class="form-group">
 							<label for="leaveType">LeaveType:</label> <select
 								class="form-control" name="leaveType" required id="leaveType">
