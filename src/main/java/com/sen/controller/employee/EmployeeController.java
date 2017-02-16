@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.EmployeeDAO;
 import model.Employee;
+import model.LeaveRole;
+import model.Role;
 
 @Controller
 @RequestMapping("employee")
@@ -38,5 +40,36 @@ public class EmployeeController {
 		
 		session.invalidate();
 		return "redirect:../index.jsp";
+	}
+	@GetMapping("/RegisterEmployee")
+	public String register(@RequestParam("code") String code, @RequestParam("name") String name,
+			@RequestParam("role") Long role, @RequestParam("emailId") String emailId,@RequestParam("password") String password, 
+			@RequestParam("mobileNo") Long mobileNo,
+			ModelMap modelMap,
+			HttpSession session) throws Exception {
+
+		try {
+			Employee emp=new Employee();
+			emp.setCode(code);
+			emp.setName(name);
+			emp.setEmailId(emailId);
+			emp.setPassword(password);
+			emp.setMobileNo(mobileNo);
+			
+			Role r=new Role();
+			r.setId(role); //employeee
+			emp.setRole(r);
+			System.out.println(emp);
+			
+			EmployeeDAO dao=new EmployeeDAO();
+			dao.registerEmployee(emp);
+	
+			return "redirect:../";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "../employee/register.jsp";
+		}
+
 	}
 }

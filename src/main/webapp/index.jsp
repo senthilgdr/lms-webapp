@@ -48,6 +48,7 @@ if ( employee != null) {
 						</div>
 					</form>
 				</div>
+				<a href="employee/register.jsp" class='btn btn-primary'>SignUp</a>
 			</div>
 		</div>
 	</div>
