@@ -42,6 +42,9 @@
 			<li><a href="<%=request.getContextPath()%>/SelectMyLeaveRole">My Leave Eligibility </a></li>
 			<li><a href="<%=request.getContextPath()%>/SelectLeaveRole">Leave Role </a></li>		
 			<li><a href="<%=request.getContextPath()%>/SelectHoliday">Holidays </a></li>
+			<li><a href="<%=request.getContextPath()%>/employeeHierarchy/SelectEmployeeHierarchy">EmployeeHierarchy </a></li>
+			
+			
 		</ul>
 
 

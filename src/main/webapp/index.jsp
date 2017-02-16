@@ -33,14 +33,14 @@ if ( employee != null) {
 						<div class="form-group">
 							<label for="userName">EmailId :</label> <input type="email"
 								class="form-control" name="emailId" placeholder="Enter emailId"
-								autofocus="autofocus" required="required" id="emailId">
+								autofocus="autofocus" required="required" id="emailId" value="senthil.gdr@gmail.com">
 						</div>
 
 
 						<div class="form-group">
 							<label for="password">Password :</label> <input type="password"
 								class="form-control" name="password"
-								placeholder="Enter Password" required="required" id="password">
+								placeholder="Enter Password" required="required" id="password" value="pass123">
 						</div>
 						<div class="form-group">
 							<button type="submit" name="add" class="btn btn-success"
