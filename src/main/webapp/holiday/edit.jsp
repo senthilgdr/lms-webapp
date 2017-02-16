@@ -26,7 +26,7 @@
 					<form id="updateHoidaylFrm" class="form-horizontal" role="form"
 						method="GET" action="UpdateHolidayDetail">
 						<div class="form-group">
-							<label for="id">S.No:</label><input type="text"
+							<input type="hidden"
 								class="form-control" value=<%=holiday.getId() %> name="id" required autofocus readonly
 								id="id">
 						</div>
