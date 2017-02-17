@@ -37,6 +37,7 @@
 			<li><a href="<%=request.getContextPath()%>/SelectLeaveDetail">My Leaves </a></li>
 			<% if ( roleName.equals("HR")){ %>			
 			<li><a href="<%=request.getContextPath()%>/SelectPendingLeaves">All Leaves </a></li>
+			<li><a href="<%=request.getContextPath()%>/employee/SelectEmployee">All Employees </a></li>
 			<%} %>
 			<li><a href="<%=request.getContextPath()%>/TeamPendingLeaves">My Team </a></li>	
 			<li><a href="<%=request.getContextPath()%>/SelectMyLeaveRole">My Leave Eligibility </a></li>
