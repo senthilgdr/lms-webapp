@@ -44,9 +44,9 @@
 			<li><a href="<%=request.getContextPath()%>/SelectLeaveRole">Leave Role </a></li>		
 			<li><a href="<%=request.getContextPath()%>/SelectHoliday">Holidays </a></li>
 			<li><a href="<%=request.getContextPath()%>/employeeHierarchy/SelectEmployeeHierarchy">EmployeeHierarchy </a></li>
-			
-			
-		</ul>
+			<li><a href="<%=request.getContextPath()%>/employeeTax/addEmployeeTax">TaxDeclaration </a></li>
+		
+		</ul>		
 
 
 		<div class="navbar-header pull-right">
@@ -60,6 +60,7 @@
 				(<%=roleName%>) !!! <a href="employee/Logout" class="navbar-link">
 					<span class="glyphicon glyphicon-off"></span> Sign Out !
 				</a>
+				
 			</p>
 
 		</div>
