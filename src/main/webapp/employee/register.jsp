@@ -54,10 +54,16 @@
 							<button type="submit" class="btn btn-success" id="addEmployeeBtn">Create
 								Account</button>
 						</div>
-
+<hr />
+						<div class="form-group">
+							Already have an account? &nbsp;&nbsp; <a
+								href="<%=request.getContextPath()%>/index.jsp" class='btn btn-primary'>
+								SIGN IN</a>
+						</div>
 					</form>
 
 				</div>
+				
 
 			</div>
 

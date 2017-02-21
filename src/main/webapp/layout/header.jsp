@@ -15,9 +15,9 @@
 <%
 	Employee employee = (Employee) session.getAttribute("LOGGED_IN_USER");
 	boolean isLoggedIn = employee != null;
-	
+
 	String roleName = "";
-	if ( employee != null ){
+	if (employee != null) {
 		roleName = employee.getRole().getName();
 	}
 %>
@@ -25,46 +25,84 @@
 <nav class="navbar-default">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp"><span
+			<a class="navbar-brand"
+				href="<%=request.getContextPath()%>/index.jsp"><span
 				class="glyphicon glyphicon-home"> LeaveManagementSystem(LMS)</span></a>
 		</div>
 		<%
-				if (isLoggedIn) {
-					
-			%>
+			if (isLoggedIn) {
+		%>
 		<ul class="nav navbar-nav">
-			<li><a href="<%=request.getContextPath()%>/addLeaveDetail">ApplyLeave</a></li>
-			<li><a href="<%=request.getContextPath()%>/SelectLeaveDetail">My Leaves </a></li>
-			<% if ( roleName.equals("HR")){ %>			
-			<li><a href="<%=request.getContextPath()%>/SelectPendingLeaves">All Leaves </a></li>
-			<li><a href="<%=request.getContextPath()%>/employee/SelectEmployee">All Employees </a></li>
-			<%} %>
-			<li><a href="<%=request.getContextPath()%>/TeamPendingLeaves">My Team </a></li>	
-			<li><a href="<%=request.getContextPath()%>/SelectMyLeaveRole">My Leave Eligibility </a></li>
-			<li><a href="<%=request.getContextPath()%>/employeeHierarchy/SelectMyTeamHierarchy">MyTeam Hierarchy</a>
-			<li><a href="<%=request.getContextPath()%>/SelectLeaveRole">Leave Role </a></li>		
-			<li><a href="<%=request.getContextPath()%>/SelectHoliday">Holidays </a></li>
-			<li><a href="<%=request.getContextPath()%>/employeeHierarchy/SelectEmployeeHierarchy">EmployeeHierarchy </a></li>
-			<li><a href="<%=request.getContextPath()%>/employeeTax/addEmployeeTax">TaxDeclaration </a></li>
-		
-		</ul>		
 
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Leave <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="<%=request.getContextPath()%>/addLeaveDetail">ApplyLeave</a></li>
+					<li><a href="<%=request.getContextPath()%>/SelectLeaveDetail">My
+							Leaves </a></li>
+					<li><a href="<%=request.getContextPath()%>/SelectMyLeaveRole">My
+							Leave Eligibility </a></li>
+				</ul></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">MyTeam <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="<%=request.getContextPath()%>/TeamPendingLeaves">MyTeam
+							LeaveDetails </a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/employeeHierarchy/SelectMyTeamHierarchy">MyTeam
+							Hierarchy</a>
+				</ul></li>
+
+			<%
+				if (roleName.equals("HR")) {
+			%>
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a
+						href="<%=request.getContextPath()%>/SelectPendingLeaves">All
+							Leaves </a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/employee/SelectEmployee">All
+							Employees </a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/employeeHierarchy/SelectEmployeeHierarchy">All
+							EmployeeHierarchy </a></li>
+				</ul></li>
+			<%
+				}
+			%>
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">HR <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="<%=request.getContextPath()%>/SelectHoliday">Holidays
+					</a></li>
+					<li><a href="<%=request.getContextPath()%>/SelectLeaveRole">Leave
+							Role </a></li>
+
+				</ul></li>
+			<li><a
+				href="<%=request.getContextPath()%>/employeeTax/addEmployeeTax">TaxDeclaration
+			</a></li>
+		</ul>
 
 		<div class="navbar-header pull-right">
 
-
-			<p class="navbar-text">
-
-
-				Welcome <span class="glyphicon glyphicon-user"></span>
-				<%=employee.getName()%>
-				(<%=roleName%>) !!! <a href="<%=request.getContextPath()%>/employee/Logout" class="navbar-link">
-					<span class="glyphicon glyphicon-off"></span> Sign Out !
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+				<a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Welcome <span
+						class="glyphicon glyphicon-user"></span><%=employee.getName()%>(<%=roleName%>)!!!
 				</a>
-				<a
-					href="employee/changepassword" class="navbar-link">
-				<span class="glyphicon glyphicon-edit"></span> Change Password !</a>
-			</p>
+
+					<ul class="dropdown-menu">
+						<li><a href="<%=request.getContextPath()%>/employee/Logout">Sign
+								Out ! </a></li>
+						<li><a href="employee/changepassword">Change Password ! </a></li>
+					</ul></li>
+			</ul>
+		
 
 		</div>
 		<%
