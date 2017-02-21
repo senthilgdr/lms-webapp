@@ -18,27 +18,25 @@ import service.EmployeeHierarchyService;
 @Controller
 @RequestMapping("employeeHierarchy")
 public class EmployeeHierarchyController {
-	EmployeeHierarchyService  employeeHierarchyService=new EmployeeHierarchyService();
-	
+	EmployeeHierarchyService employeeHierarchyService = new EmployeeHierarchyService();
+
 	@GetMapping("/addEmployeeHierarchy")
 	public String create() {
 		return "../employeeHierarchy/add.jsp";
 	}
 
 	@GetMapping("/InsertEmployeeHierarchy")
-	public String save(@RequestParam("empId") Integer empId,  
-			@RequestParam("mgrId") Integer mgrId,
-			ModelMap modelMap,
+	public String save(@RequestParam("empId") Integer empId, @RequestParam("mgrId") Integer mgrId, ModelMap modelMap,
 			HttpSession session) throws Exception {
 
 		try {
-			EmployeeHierarchy employeeHierarchy=new EmployeeHierarchy();
+			EmployeeHierarchy employeeHierarchy = new EmployeeHierarchy();
 			employeeHierarchy.setEmpId(empId);
 			employeeHierarchy.setMgrId(mgrId);
-			
+
 			employeeHierarchyService.insert(employeeHierarchy);
 			System.out.println(employeeHierarchy);
-	
+
 			return "redirect:SelectEmployeeHierarchy";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,11 +45,12 @@ public class EmployeeHierarchyController {
 		}
 
 	}
+
 	@GetMapping("/SelectEmployeeHierarchy")
 	public String list(ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
-			
+
 			List<EmployeeHierarchy> list = employeeHierarchyService.list();
 			System.out.println(list);
 			modelMap.addAttribute("EMPLOYEE_HIERARCHY_LIST", list);
@@ -64,40 +63,57 @@ public class EmployeeHierarchyController {
 			return "/home.jsp";
 		}
 	}
-	
-	@GetMapping("/EditEmployeeHierarchy")
-	public String edit( @RequestParam("id") Long id,
-		ModelMap modelMap) throws Exception {
+
+	@GetMapping("/SelectMyTeamHierarchy")
+	public String listMyTeam(ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
-			
-			EmployeeHierarchy ld=new EmployeeHierarchyDAO().findById(id);
+			Employee employee = (Employee) session.getAttribute("LOGGED_IN_USER");
+			List<EmployeeHierarchy> list = employeeHierarchyService.listMyTeam(employee.getId());
+			System.out.println(list);
+			modelMap.addAttribute("EMPLOYEE_HIERARCHY_LIST", list);
+
+			return "../employeeHierarchy/list.jsp";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/home.jsp";
+		}
+	}
+
+	@GetMapping("/EditEmployeeHierarchy")
+	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
+
+		try {
+
+			EmployeeHierarchy ld = new EmployeeHierarchyDAO().findById(id);
 			modelMap.addAttribute("EDIT_EMPLOYEE_HIERARCHY", ld);
 
 			return "../employeeHierarchy/edit.jsp";
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "../employeeHierarchy/list.jsp";
 		}
-	
-}
+
+	}
+
 	@GetMapping("/UpdateEmployeeHierarchy")
-	public String update(@RequestParam("id") Long id,@RequestParam("empId") Integer empId, @RequestParam("mgrId") Integer mgrId,
-			 ModelMap modelMap,	HttpSession session) throws Exception {
+	public String update(@RequestParam("id") Long id, @RequestParam("empId") Integer empId,
+			@RequestParam("mgrId") Integer mgrId, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 
 			// Step : Store in View
-			EmployeeHierarchy employeeHierarchy=employeeHierarchyService.findById(id);
+			EmployeeHierarchy employeeHierarchy = employeeHierarchyService.findById(id);
 			employeeHierarchy.setMgrId(mgrId);
 
 			Employee emp = (Employee) session.getAttribute("LOGGED_IN_USER");
 			employeeHierarchy.setEmpId(empId);
-			
-						
-		employeeHierarchyService.update(employeeHierarchy);
+
+			employeeHierarchyService.update(employeeHierarchy);
 
 			return "redirect:SelectEmployeeHierarchy?INFO_MESSAGE=Successfully EmployeeHierarchy Updated";
 		} catch (Exception e) {
@@ -107,10 +123,9 @@ public class EmployeeHierarchyController {
 		}
 
 	}
-	
+
 	@GetMapping("/DeleteEmployeeHierarchy")
-	public String delete( @RequestParam("id") Long id,
-		ModelMap modelMap) throws Exception {
+	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
 			employeeHierarchyService.delete(Long.valueOf(id));
@@ -119,7 +134,7 @@ public class EmployeeHierarchyController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return  "../employeeHierarchy/list.jsp";
+			return "../employeeHierarchy/list.jsp";
 		}
 	}
 }
