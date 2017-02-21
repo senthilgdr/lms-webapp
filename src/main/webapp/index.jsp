@@ -47,7 +47,10 @@
 							<button type="submit" name="add" class="btn btn-success"
 								id="addLoginBtn">SIGN IN</button>
 						</div>
-						
+						<div class="row">
+							<a href="employee/getForgotpassword" class="btn btn-link">Forgot
+								password?</a>
+						</div>
 						<hr />
 						<div class="form-group">
 							Don't have an account? &nbsp;&nbsp; <a

@@ -57,10 +57,12 @@
 
 				Welcome <span class="glyphicon glyphicon-user"></span>
 				<%=employee.getName()%>
-				(<%=roleName%>) !!! <a href="employee/Logout" class="navbar-link">
+				(<%=roleName%>) !!! <a href="<%=request.getContextPath()%>/employee/Logout" class="navbar-link">
 					<span class="glyphicon glyphicon-off"></span> Sign Out !
 				</a>
-				
+				<a
+					href="employee/changepassword" class="navbar-link">
+				<span class="glyphicon glyphicon-edit"></span> Change Password !</a>
 			</p>
 
 		</div>

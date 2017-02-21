@@ -23,13 +23,13 @@ import service.EmployeeService;
 @RequestMapping("employee")
 public class EmployeeController {
 	
-	EmployeeService employeeSevice=new EmployeeService();
+	EmployeeService employeeService=new EmployeeService();
 
 	@PostMapping("/login")
 	public String login(@RequestParam("emailId") String emailId ,@RequestParam("password") String password, ModelMap modelMap, HttpSession session) {
 		System.out.println("EmployeeController->login");
 		
-		Employee employee = new EmployeeDAO().findByEmailId(emailId,password);
+		Employee employee = new EmployeeDAO().findByEmailIdAndPassword(emailId,password);
 		if ( employee != null ) {
 		session.setAttribute("LOGGED_IN_USER", employee);
 		
@@ -66,12 +66,11 @@ public class EmployeeController {
 			Role r=new Role();
 			r.setId(role); //employeee
 			emp.setRole(r);
-			System.out.println(emp);
-			
-			EmployeeDAO dao=new EmployeeDAO();
-			dao.registerEmployee(emp);
+			System.out.println(emp);			
+		
+			employeeService.register(emp);
 	
-			//UserMailManager.sendNewRegistrationEmail(emp);
+			UserMailManager.sendNewRegistrationEmail(emp);
 			return "redirect:../";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +85,7 @@ public class EmployeeController {
 
 		try {
 			
-			List<Employee> list = employeeSevice.list();
+			List<Employee> list = employeeService.list();
 			System.out.println(list);
 			modelMap.addAttribute("EMPLOYEE_LIST", list);
 
@@ -103,7 +102,7 @@ public class EmployeeController {
 		ModelMap modelMap) throws Exception {
 
 		try {
-			employeeSevice.delete(Long.valueOf(id));
+			employeeService.delete(Long.valueOf(id));
 
 			return "redirect:SelectEmployee";
 		} catch (Exception e) {
@@ -112,4 +111,51 @@ public class EmployeeController {
 			return  "../employee/list.jsp";
 		}
 	}
-}
+	@GetMapping("/getForgotpassword")
+	public String forgotpassword() {
+		System.out.println("Employee->ForgotPassword");
+		return "../employee/forgotpassword.jsp";
+	}
+	
+	@PostMapping("/Forgotpassword")
+	public String forgotPassword(@RequestParam("emailId") String emailId,
+			ModelMap modelMap) throws Exception {
+
+		try {		
+			
+			employeeService.forgotPassword(emailId);
+
+			return "redirect:/";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			return "forgotpassword.jsp";
+		}
+
+	}
+	
+	@GetMapping("/changepassword")
+	public String changepassword() {
+		return "../employee/changepassword.jsp";
+	}
+	
+	@PostMapping("/updatePassword")
+	public String changePassword(@RequestParam("currentpassword") String currentpassword,@RequestParam("newpassword") String newpassword,
+			ModelMap modelMap,HttpSession session) throws Exception {
+
+		try {		
+			Employee emp = (Employee) session.getAttribute("LOGGED_IN_USER");
+			System.out.println("UpdatePassword:"+emp);
+			employeeService.changePassword(emp.getEmailId(),currentpassword,newpassword);
+            session.invalidate();
+			return "redirect:/";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			return "index.jsp";
+		}
+
+	}
+
+
+	}
