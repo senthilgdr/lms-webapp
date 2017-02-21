@@ -29,11 +29,8 @@ public class LeaveDetailController {
 	private LeaveTypeService leaveTypeService = new LeaveTypeService();
 
 	private EmployeeService employeeService = new EmployeeService();
-	
 
 	private LeaveStatusService leaveStatusService = new LeaveStatusService();
-
-	LeaveStatus ls = new LeaveStatus();
 
 	@GetMapping("/addLeaveDetail")
 	public String create() {
@@ -60,7 +57,10 @@ public class LeaveDetailController {
 
 			ld.setNoOfDays(Float.valueOf(noOfDays));
 
-			LeaveStatus findById = leaveStatusService.findById(1L);// Default Status :  1 - Applied
+			LeaveStatus findById = leaveStatusService.findById(1L);// Default
+																	// Status :
+																	// 1 -
+																	// Applied
 			ld.setStatus(findById);
 
 			System.out.println("Add Leave method:" + ld);
@@ -115,6 +115,7 @@ public class LeaveDetailController {
 			return "/home.jsp";
 		}
 	}
+
 	@GetMapping("/TeamPendingLeaves")
 	public String TeamPendingLeaves(ModelMap modelMap, HttpSession session) throws Exception {
 
@@ -134,39 +135,38 @@ public class LeaveDetailController {
 		}
 	}
 
-	/*@GetMapping("/ApproveLeaveDetail")
-	public String updateStatus(@RequestParam("id") String id, @RequestParam("status") String status, ModelMap modelMap,
-			HttpServletRequest request, HttpSession session) throws Exception {
-
-		try {
-			
-			
-			LeaveDetail ld = leaveDetailService.findById(Long.valueOf(id));
-
-			ld.setStatus(leaveStatusService.findById(Long.valueOf(status)));
-			// ld.setModifiedBy(employeeService.findById(Long.valueOf(modifiedBy)));
-
-			System.out.println(ld);
-
-			leaveDetailService.update(ld);
-
-			return "redirect:/SelectPendingLeaves";
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "leave_details/pendingleaveslist.jsp";
-		}
-	}*/
+	/*
+	 * @GetMapping("/ApproveLeaveDetail") public String
+	 * updateStatus(@RequestParam("id") String id, @RequestParam("status")
+	 * String status, ModelMap modelMap, HttpServletRequest request, HttpSession
+	 * session) throws Exception {
+	 * 
+	 * try {
+	 * 
+	 * 
+	 * LeaveDetail ld = leaveDetailService.findById(Long.valueOf(id));
+	 * 
+	 * ld.setStatus(leaveStatusService.findById(Long.valueOf(status))); //
+	 * ld.setModifiedBy(employeeService.findById(Long.valueOf(modifiedBy)));
+	 * 
+	 * System.out.println(ld);
+	 * 
+	 * leaveDetailService.update(ld);
+	 * 
+	 * return "redirect:/SelectPendingLeaves"; } catch (Exception e) {
+	 * e.printStackTrace(); modelMap.addAttribute("errorMessage",
+	 * e.getMessage()); return "leave_details/pendingleaveslist.jsp"; } }
+	 */
 
 	@GetMapping("/UpdateLeaveDetail")
 	public String update(@RequestParam("id") String id, @RequestParam("status") String status, ModelMap modelMap,
 			HttpServletRequest request, HttpSession session) throws Exception {
 
 		String previousPageUrl = request.getHeader("Referer");
-		String previousPage = previousPageUrl.substring( previousPageUrl.lastIndexOf("/") +1, previousPageUrl.length());
-		
+		String previousPage = previousPageUrl.substring(previousPageUrl.lastIndexOf("/") + 1, previousPageUrl.length());
+
 		System.out.println("Previous Page:" + previousPage);
-		
+
 		try {
 
 			LeaveDetail ld = leaveDetailService.findById(Long.valueOf(id));
@@ -185,38 +185,38 @@ public class LeaveDetailController {
 			return "leave_details/list.jsp";
 		}
 	}
+
 	@GetMapping("/EditLeaveDetail")
-	public String edit( @RequestParam("id") Long id,
-		ModelMap modelMap) throws Exception {
+	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-			
-			LeaveDetail ld=new LeaveDetailDAO().findById(id);
+
+			LeaveDetail ld = new LeaveDetailDAO().findById(id);
 			modelMap.addAttribute("EDIT_LEAVE_DETAIL", ld);
 
 			return "leave_details/editLeaveDetail.jsp";
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "leave_details/list.jsp";
 		}
-	
-}
+
+	}
+
 	@GetMapping("/UpdateAllLeaveDetail")
-	public String updateAll(@RequestParam("id") Long id,@RequestParam("leaveType") Long leaveType, @RequestParam("fromDate") String fromDate,
-			@RequestParam("toDate") String toDate, @RequestParam("noOfDays") String noOfDays, ModelMap modelMap,
-			HttpSession session) throws Exception {
+	public String updateAll(@RequestParam("id") Long id, @RequestParam("leaveType") Long leaveType,
+			@RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate,
+			@RequestParam("noOfDays") String noOfDays, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 
-		
 			LeaveDetail ld = new LeaveDetail();
 			ld.setId(id);
 
 			Employee emp = (Employee) session.getAttribute("LOGGED_IN_USER");
 			ld.setModifiedBy(emp);
-			
+
 			LeaveType leaveTypeObj = leaveTypeService.findById(leaveType);
 			ld.setLeaveType(leaveTypeObj);
 
@@ -225,11 +225,14 @@ public class LeaveDetailController {
 
 			ld.setNoOfDays(Float.valueOf(noOfDays));
 
-			LeaveStatus findById = leaveStatusService.findById(1L);// Default Status :  1 - Applied
+			LeaveStatus findById = leaveStatusService.findById(1L);// Default
+																	// Status :
+																	// 1 -
+																	// Applied
 			ld.setStatus(findById);
 
 			System.out.println("Update Leave method:" + ld);
-			
+
 			new LeaveDetailDAO().updateLeaveDetail(ld);
 
 			return "redirect:SelectLeaveDetail?INFO_MESSAGE=Successfully LeaveDetail Updated";

@@ -7,7 +7,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Leave Detail</title>
+<script>
+$(document).ready(function(){
+	console.log("Jquery Loaded");	
+	var todayDate= getCurrentDate();
+	$("#fromDate").attr("min",todayDate);
+	$("#toDate").attr("min",todayDate);
+	
+});
 
+function fromDateSelected(){
+	var fromDate = $("#fromDate").val();
+	console.log("FromDateSelected:" + fromDate);
+	$("#toDate").attr("min",fromDate);
+}
+</script>
 </head>
 <body>
 	<jsp:include page="/layout/header.jsp"></jsp:include>
@@ -48,7 +62,7 @@
 						<div class="form-group">
 							<label for="fromDate">From Date:</label><input type="date"
 								class="form-control" value="<%=leaveList.getFromDate()%>" name="fromDate" required
-								id="fromDate">
+								id="fromDate" oninput="fromDateSelected()">
 						</div>
 						<div class="form-group">
 							<label for="toDate">To Date</label><input type="date"
