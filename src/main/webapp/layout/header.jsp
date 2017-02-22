@@ -69,6 +69,7 @@
 					<li><a
 						href="<%=request.getContextPath()%>/employeeHierarchy/SelectEmployeeHierarchy">All
 							EmployeeHierarchy </a></li>
+							<li><a href="<%=request.getContextPath()%>/employeeTax/SelectEmployeeTax">All Employees Tax Details</a></li>
 				</ul></li>
 			<%
 				}
@@ -82,9 +83,12 @@
 							Role </a></li>
 
 				</ul></li>
-			<li><a
-				href="<%=request.getContextPath()%>/employeeTax/addEmployeeTax">TaxDeclaration
-			</a></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">TaxDeclaration <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				<li><a href="<%=request.getContextPath()%>/employeeTax/addEmployeeTax">Apply Tax</a></li>
+				<li><a href="<%=request.getContextPath()%>/employeeTax/SelectMyTax">My Tax Details</a></li>
+						</ul></li>		
 		</ul>
 
 		<div class="navbar-header pull-right">
@@ -97,9 +101,10 @@
 				</a>
 
 					<ul class="dropdown-menu">
+					<li><a href="<%=request.getContextPath()%>/employee/MyProfile">My Profile </a></li>
 						<li><a href="<%=request.getContextPath()%>/employee/Logout">Sign
 								Out ! </a></li>
-						<li><a href="employee/changepassword">Change Password ! </a></li>
+						<li><a href="<%=request.getContextPath()%>/employee/changepassword">Change Password ! </a></li>
 					</ul></li>
 			</ul>
 		

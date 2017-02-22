@@ -1,5 +1,7 @@
 package com.sen.controller.employee;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -100,4 +102,41 @@ public class EmployeeTaxDeclarationController {
 
 	}
 
+	@GetMapping("/SelectEmployeeTax")
+	public String list(ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+			Employee emp = (Employee) session.getAttribute("LOGGED_IN_USER");
+
+			List<TaxDeclaration> list = employeeTaxService.findAll();
+			System.out.println(list);
+			modelMap.addAttribute("EMPLOYEE_TAX_LIST", list);
+
+			return "../employee/taxlist.jsp";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/home.jsp";
+		}
+	}
+
+	@GetMapping("/SelectMyTax")
+	public String myTax(ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+			Employee emp = (Employee) session.getAttribute("LOGGED_IN_USER");
+
+			TaxDeclaration td = employeeTaxService.findByEmpId(emp.getId());
+			System.out.println(td);
+			modelMap.addAttribute("MY_TAX_LIST", td);
+
+			return "../employee/mytaxlist.jsp";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/home.jsp";
+		}
+	}
 }
