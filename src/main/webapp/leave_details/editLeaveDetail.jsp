@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Leave Detail</title>
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/dateutil.js"></script>
 <script>
 $(document).ready(function(){
 	console.log("Jquery Loaded");	
@@ -28,7 +30,7 @@ function fromDateSelected(){
 	<div id="msg"></div>
 	<div class="container">
 		<%
-			 LeaveDetail leaveList = (LeaveDetail) request.getAttribute("EDIT_LEAVE_DETAIL"); 
+			 LeaveDetail ld = (LeaveDetail) request.getAttribute("EDIT_LEAVE_DETAIL"); 
 					
 		%>
 		<div class="row">
@@ -43,12 +45,12 @@ function fromDateSelected(){
 					<form id="updateLeaveDetailFrm" class="form-horizontal" role="form"
 						method="GET" action="UpdateAllLeaveDetail">
 
-						<input type="hidden" name="id" value="<%=leaveList.getId() %>" />
+						<input type="hidden" name="id" value="<%=ld.getId() %>" />
 						<div class="form-group">
 							<label for="leaveType">LeaveType:</label> 
 							
 							<%
-							Long leaveTypeId= leaveList.getLeaveType().getId();
+							Long leaveTypeId= ld.getLeaveType().getId();
 							
 							%>
 							<select
@@ -61,17 +63,17 @@ function fromDateSelected(){
 						</div>
 						<div class="form-group">
 							<label for="fromDate">From Date:</label><input type="date"
-								class="form-control" value="<%=leaveList.getFromDate()%>" name="fromDate" required
+								class="form-control" value="<%=ld.getFromDate()%>" name="fromDate" required
 								id="fromDate" oninput="fromDateSelected()">
 						</div>
 						<div class="form-group">
 							<label for="toDate">To Date</label><input type="date"
-								class="form-control" value="<%=leaveList.getToDate()%>" name="toDate" required
+								class="form-control" value="<%=ld.getToDate()%>" name="toDate" required
 								id="toDate">
 						</div>
 						<div class="form-group">
 							<label for="noOfDays">No Of Days:</label><input type="text"
-								class="form-control"  value="<%=leaveList.getNoOfDays()%>" name="noOfDays" required 
+								class="form-control"  value="<%=ld.getNoOfDays()%>" name="noOfDays" required 
 								id="noOfDays">
 						</div>
 
