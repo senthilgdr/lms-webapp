@@ -1,4 +1,3 @@
-
 <%@page import="model.Employee"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -42,7 +41,7 @@
 							
 
 						<div class="form-group">
-							<button type="submit" class="btn btn-success" id="registerBtn">Confirm</button>
+							<button type="submit" class="btn btn-success" id="registerBtn">Update</button>
 						</div>
 
 					</form>
