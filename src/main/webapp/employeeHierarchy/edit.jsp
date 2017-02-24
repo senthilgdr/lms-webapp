@@ -14,9 +14,9 @@
 	<jsp:include page="/layout/header.jsp"></jsp:include>
 	<div id="msg"></div>
 	<div class="container">
-<%
-EmployeeHierarchy emp=(EmployeeHierarchy)request.getAttribute("EDIT_EMPLOYEE_HIERARCHY") ;
-%>
+		<%
+			EmployeeHierarchy emp = (EmployeeHierarchy) request.getAttribute("EDIT_EMPLOYEE_HIERARCHY");
+		%>
 		<div class="row">
 			<div class="col-md-4">
 
@@ -26,24 +26,25 @@ EmployeeHierarchy emp=(EmployeeHierarchy)request.getAttribute("EDIT_EMPLOYEE_HIE
 					</div>
 				</div>
 				<div class="portlet-body">
-					<form id="updateEmployeeHierarchyFrm" class="form-horizontal" role="form"
-						method="GET" action="UpdateEmployeeHierarchy">
-<input type="hidden" name="id" value="<%=emp.getId() %>">
+					<form id="updateEmployeeHierarchyFrm" class="form-horizontal"
+						role="form" method="GET" action="UpdateEmployeeHierarchy">
+						<input type="hidden" name="id" value="<%=emp.getId()%>">
 						<div class="form-group">
 							<label for="employeeName">EmployeeName:</label><input type="text"
-								class="form-control" value="<%=emp.getEmpId() %>" name="empId" readonly required autofocus
-								id="employeeName">
+								class="form-control" value="<%=emp.getEmpId()%>" name="empId"
+								readonly required autofocus id="employeeName">
 						</div>
 
 						<div class="form-group">
 							<label for="managerName">ManagerName:</label><input type="text"
-								class="form-control" value="<%=emp.getMgrId() %>" name="mgrId" required
-								id="managerName">
+								class="form-control" value="<%=emp.getMgrId()%>" name="mgrId"
+								required id="managerName">
 						</div>
 
 
 						<div class="form-group">
-							<button type="submit" class="btn btn-success" id="updateEmployeeHierarchyBtn">Update</button>
+							<button type="submit" class="btn btn-success"
+								id="updateEmployeeHierarchyBtn">Update</button>
 						</div>
 
 					</form>
