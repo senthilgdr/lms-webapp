@@ -48,14 +48,15 @@ public class EmployeeController {
 
 	@GetMapping("/RegisterEmployee")
 	public String register(@RequestParam("code") String code, @RequestParam("name") String name,
-			@RequestParam("role") Long role, @RequestParam("emailId") String emailId,
-			@RequestParam("password") String password, @RequestParam("mobileNo") Long mobileNo, ModelMap modelMap,
-			HttpSession session) throws Exception {
+			@RequestParam("gender") String gender, @RequestParam("role") Long role,
+			@RequestParam("emailId") String emailId, @RequestParam("password") String password,
+			@RequestParam("mobileNo") Long mobileNo, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 			Employee emp = new Employee();
 			emp.setCode(code);
 			emp.setName(name);
+			emp.setGender(gender);
 			emp.setEmailId(emailId);
 			emp.setPassword(password);
 			emp.setMobileNo(mobileNo);
@@ -71,7 +72,7 @@ public class EmployeeController {
 			return "redirect:../";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
 			return "../employee/register.jsp";
 		}
 
@@ -90,7 +91,7 @@ public class EmployeeController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
 			return "/home.jsp";
 		}
 	}
@@ -104,9 +105,59 @@ public class EmployeeController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
 			return "/home.jsp";
 		}
+	}
+
+	@GetMapping("/EditEmployee")
+	public String edit(@RequestParam("id") Long id, ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+
+			Employee emp = (Employee) session.getAttribute("LOGGED_IN_USER");
+			modelMap.addAttribute("EDIT_EMPLOYEE", emp);
+
+			return "../employee/edit.jsp";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			return "../employee/list.jsp";
+		}
+
+	}
+
+	@GetMapping("/UpdateEmployee")
+	public String update(@RequestParam("id") Long id, @RequestParam("code") String code,
+			@RequestParam("name") String name, @RequestParam("role") Long role, @RequestParam("mailId") String mailId,
+			@RequestParam("mobileNo") Long mobileNo, ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+			Employee employee = employeeService.findById(id);
+			employee.setCode(code);
+			employee.setName(name);
+			employee.setEmailId(mailId);
+			employee.setMobileNo(mobileNo);
+
+			Role r = new Role();
+			r.setId(role);
+
+			employee.setRole(r);
+			employeeService.update(employee);
+
+			Employee employeeNew = employeeService.findById(id);
+			session.setAttribute("LOGGED_IN_USER", employeeNew);
+
+			System.out.println("Updated" + employee);
+
+			return "redirect:MyProfile?INFO_MESSAGE=Successfully Employee Updated";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			return "EditEmployee";
+		}
+
 	}
 
 	@GetMapping("/DeleteEmployee")
@@ -118,7 +169,7 @@ public class EmployeeController {
 			return "redirect:SelectEmployee";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
 			return "../employee/list.jsp";
 		}
 	}
