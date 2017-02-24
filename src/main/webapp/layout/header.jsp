@@ -42,6 +42,7 @@
 							Leaves </a></li>
 					<li><a href="<%=request.getContextPath()%>/SelectMyLeaveRole">My
 							Leave Eligibility </a></li>
+							
 				</ul></li>
 
 			<li class="dropdown"><a class="dropdown-toggle"
@@ -70,6 +71,9 @@
 						href="<%=request.getContextPath()%>/employeeHierarchy/SelectEmployeeHierarchy">All
 							EmployeeHierarchy </a></li>
 							<li><a href="<%=request.getContextPath()%>/employeeTax/SelectEmployeeTax">All Employees Tax Details</a></li>
+				<li><a
+						href="<%=request.getContextPath()%>/employeeSalary/SelectEmployeeSalary">All
+							Employee Salary </a></li>
 				</ul></li>
 			<%
 				}
@@ -102,6 +106,7 @@
 
 					<ul class="dropdown-menu">
 					<li><a href="<%=request.getContextPath()%>/employee/MyProfile">My Profile </a></li>
+					<li><a href="<%=request.getContextPath()%>/employeeSalary/SelectMySalary">My Salary </a></li>
 						<li><a href="<%=request.getContextPath()%>/employee/Logout">Sign
 								Out ! </a></li>
 						<li><a href="<%=request.getContextPath()%>/employee/changepassword">Change Password ! </a></li>
