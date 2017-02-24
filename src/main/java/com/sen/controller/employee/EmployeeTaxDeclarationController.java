@@ -23,7 +23,7 @@ public class EmployeeTaxDeclarationController {
 
 	@GetMapping("/addEmployeeTax")
 	public String create() {
-		return "../employee/taxdeclaration.jsp";
+		return "../employeetax/taxdeclaration.jsp";
 	}
 
 	@GetMapping("/ApplyEmployeeTax")
@@ -93,11 +93,11 @@ public class EmployeeTaxDeclarationController {
 			EmployeeTaxDeclarationDAO dao = new EmployeeTaxDeclarationDAO();
 			dao.applyTaxDeclaration(td);
 			System.out.println("Insertd" + td);
-			return "../employee/taxdeclaration.jsp";
+			return "../employeetax/taxdeclaration.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "../employee/taxdeclaration.jsp";
+			return "../employeetax/taxdeclaration.jsp";
 		}
 
 	}
@@ -112,7 +112,7 @@ public class EmployeeTaxDeclarationController {
 			System.out.println(list);
 			modelMap.addAttribute("EMPLOYEE_TAX_LIST", list);
 
-			return "../employee/taxlist.jsp";
+			return "../employeetax/taxlist.jsp";
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,7 +131,7 @@ public class EmployeeTaxDeclarationController {
 			System.out.println(td);
 			modelMap.addAttribute("MY_TAX_LIST", td);
 
-			return "../employee/mytaxlist.jsp";
+			return "../employeetax/mytaxlist.jsp";
 
 		} catch (Exception e) {
 			e.printStackTrace();
