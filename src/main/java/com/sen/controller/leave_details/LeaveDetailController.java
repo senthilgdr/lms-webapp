@@ -1,6 +1,7 @@
 package com.sen.controller.leave_details;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +39,8 @@ public class LeaveDetailController {
 	}
 
 	@GetMapping("/InsertLeaveDetail")
-	public String save(@RequestParam("leaveType") Long leaveType, @RequestParam("fromDate") String fromDate,
-			@RequestParam("toDate") String toDate, @RequestParam("noOfDays") String noOfDays, ModelMap modelMap,
+	public String save(@RequestParam("leaveType") Long leaveType, @RequestParam("fromDate") String fromDateStr,
+			@RequestParam("toDate") String toDateStr, @RequestParam("daytype") String daytype, ModelMap modelMap,
 			HttpSession session) throws Exception {
 
 		try {
@@ -52,10 +53,27 @@ public class LeaveDetailController {
 			LeaveType leaveTypeObj = leaveTypeService.findById(leaveType);
 			ld.setLeaveType(leaveTypeObj);
 
-			ld.setFromDate(LocalDate.parse(fromDate));
-			ld.setToDate(LocalDate.parse(toDate));
+			ld.setFromDate(LocalDate.parse(fromDateStr));
+			ld.setToDate(LocalDate.parse(toDateStr));
 
-			ld.setNoOfDays(Float.valueOf(noOfDays));
+			float noOfDays = 0f;
+
+			// If FULL_DAY leave then we need to calculate no of days
+			// If half day leave then we set 0.5
+			if (daytype.equals("FULL_DAY")) {
+
+				LocalDate fromDate = LocalDate.parse(fromDateStr);
+				LocalDate endDate = LocalDate.parse(toDateStr);
+
+				long diffDays = ChronoUnit.DAYS.between(fromDate, endDate) + 1;
+
+				noOfDays = Float.valueOf(diffDays);
+
+			} else if (daytype.equals("HALF_DAY")) {
+				noOfDays = 0.5f;
+			}
+
+			ld.setNoOfDays(noOfDays);
 
 			LeaveStatus findById = leaveStatusService.findById(1L);// Default
 																	// Status :

@@ -10,44 +10,55 @@
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/dateutil.js"></script>
 <script>
+	$(document).ready(function() {
+		console.log("Jquery Loaded");
+		var todayDate = getCurrentDate();
+		$("#fromDate").attr("min", todayDate);
+		$("#toDate").attr("min", todayDate);
 
-$(document).ready(function(){
-	console.log("Jquery Loaded");	
-	var todayDate= getCurrentDate();
-	$("#fromDate").attr("min",todayDate);
-	$("#toDate").attr("min",todayDate);
+	});
 	
-});
-
-function fromDateSelected(){
-	var fromDate = $("#fromDate").val();
-	console.log("FromDateSelected:" + fromDate);
-	$("#toDate").attr("min",fromDate);
-}
-/* $(document).ready(function(){
-	console.log("Jquery Loaded");
-	var date= new Date();
-	var month = parseInt(date.getMonth()+1);
-	var currentMonth = addZeroPrefix(month);
-	var todayDate = date.getFullYear() +"-" + currentMonth+"-" + addZeroPrefix(date.getDate());
-	console.log(todayDate);
-	//$("#fromDate").attr("min","2017-02-15");
-	$("#fromDate").attr("min",todayDate);
-});
-
-function addZeroPrefix(month){
-	var m ="";
-	if ( month <10){
-		m= "0"+ month;
+	function dayType() {
+		var dayType = $("#daytype").val();
+	
+		if ("FULL_DAY" == dayType){
+			$("#toDate").removeAttr("max");
+		}
+		else if ("HALF_DAY" == dayType) {
+			var fromDate = $("#fromDate").val();
+			$("#toDate").attr("value", fromDate);
+		}
+		
+		
 	}
-	else
-	{
-		m = month;
+
+	function fromDateSelected() {
+		var fromDate = $("#fromDate").val();
+		console.log("FromDateSelected:" + fromDate);
+		$("#toDate").attr("min", fromDate);
+		
+		var dayType = $("#daytype").val();
+		
+		if("HALF_DAY" == dayType) {
+			//alert("From Date and toDate should be same");
+			$("#toDate").attr("value", fromDate);
+			$("#toDate").attr("max", fromDate);
+		}
+		else
+		{
+			
+		}
 	}
-	return m;
-} */
+	
+	
+<%Employee employee = (Employee) session.getAttribute("LOGGED_IN_USER");
+			boolean isLoggedIn = employee != null;
 
-
+			String gender = "";
+			if (employee != null) {
+				gender = employee.getGender();
+			}%>
+	
 </script>
 
 </head>
@@ -55,7 +66,7 @@ function addZeroPrefix(month){
 	<jsp:include page="/layout/header.jsp"></jsp:include>
 	<div id="msg"></div>
 	<div class="container">
-		
+
 		<div class="row">
 			<div class="col-md-2">
 
@@ -74,27 +85,40 @@ function addZeroPrefix(month){
 								<option value="1">Casual Leave</option>
 								<option value="2">SickLeave</option>
 								<option value="3">Paid Leave</option>
+								<%
+									if ("F".equals(gender)) {
+								%>
+								<option value="4">Maternity Leave</option>
+
+								<%
+									} else {
+								%>
+								<option value="5">Paternity Leave</option>
+								<%
+									}
+								%>
+								<option value="5">Privileged Leave</option>
 
 							</select>
 						</div>
+							<div class="form-group">
+							<label for="daytype">Day Type:</label>
+							<select class="form-control" name="daytype" required id="daytype" onchange="dayType()"> 
+						<option value="FULL_DAY" selected>Full Day</option>
+						<option value="HALF_DAY">Half Day</option>
+						</select>
+						</div>
 						<div class="form-group">
 							<label for="fromDate">From Date:</label><input type="date"
-								class="form-control" id="fromDate"  name="fromDate" required  autofocus
-								id="fromDate" oninput="fromDateSelected()">
+								class="form-control" id="fromDate" name="fromDate" required
+								autofocus id="fromDate" oninput="fromDateSelected()">
 						</div>
 						<div class="form-group">
 							<label for="toDate">To Date</label><input type="date"
-								class="form-control" id="toDate" name="toDate" required autofocus
-								id="toDate">
+								class="form-control" id="toDate" name="toDate" required
+								autofocus id="toDate">
 						</div>
-						<div class="form-group">
-							<label for="noOfDays">No Of Days:</label><input type="text"
-								class="form-control" name="noOfDays" required autofocus
-								id="noOfDays">
-						</div>
-
-
-
+					
 						<div class="form-group">
 							<button type="submit" class="btn btn-success"
 								id="addLeaveDetailBtn">Submit</button>
@@ -103,7 +127,7 @@ function addZeroPrefix(month){
 					</form>
 
 				</div>
-				
+
 			</div>
 
 		</div>
