@@ -37,7 +37,7 @@ public class EmployeeSalaryController {
 			Employee employee = (Employee) session.getAttribute("LOGGED_IN_USER");
 			employee.setId(empId);
 
-			emp.setEmpId(employee);
+			emp.setEmployee(employee);
 			emp.setBasicPay(basicPay);
 			emp.setHra(hra);
 			emp.setConveyance(conveyance);

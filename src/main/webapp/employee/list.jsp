@@ -66,7 +66,9 @@
 									<td><a class='btn btn-danger'
 										href="DeleteEmployee?id=<%=emp.getId()%>"><span
 											class='icon-pencil'></span>Delete</a></td>
-
+											
+				                <td><a class='btn btn-success' href="../employeeSalary/addEmployeeSalary?name=<%=emp.getName()%>&empid=<%=emp.getId()%>">Add Salary</a></td>
+			
 								</tr>
 								<%}} %>
 							</tbody>

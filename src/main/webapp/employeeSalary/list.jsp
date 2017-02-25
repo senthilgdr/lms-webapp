@@ -56,7 +56,7 @@
 								%>
 								<tr>
 									<td><%=i++%></td>
-									<td><%=empSalary.getEmpId().getId()%></td>
+									<td><%=empSalary.getEmployee().getName()%></td>
 									<td><%=empSalary.getBasicPay() %></td>
 									<td><%=empSalary.getHra() %></td>
 									<td><%=empSalary.getConveyance() %></td>

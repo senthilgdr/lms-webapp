@@ -13,6 +13,11 @@
 	<jsp:include page="/layout/header.jsp"></jsp:include>
 	<div id="msg"></div>
 	<div class="container">
+	
+	<%
+	String name = request.getParameter("name");
+	String empId = request.getParameter("empid");
+	%>
 <%
 List<Employee> list =(List<Employee>)request.getAttribute("EMPLOYEE_LIST");
 %>
@@ -21,35 +26,20 @@ List<Employee> list =(List<Employee>)request.getAttribute("EMPLOYEE_LIST");
 
 				<div class="portlet-title">
 					<div class="page-header">
-						<h4>EmployeeSalary</h4>
+						<h4>EmployeeSalary - <%=name%>  </h4>
 					</div>
 				</div>
 				<div class="portlet-body">
 					<form id="addEmployeeSalaryFrm" class="form-horizontal" role="form"
 						method="GET" action="InsertEmployeeSalary">
 
-						<div class="form-group">
-							<label for="empId">NAME:</label><input type="text"
-								class="form-control" name="empId" required autofocus
-								id="empId">
-						</div>
-						<%-- <div class="form-group">
-							<label for="empId">NAME:</label>
-							
-							<select name="empId">
-							<% 
-							for(Employee emp:list){ %>
-							<option value="<%=emp.getId() %>" <%=emp.getName() %>></option>
-														
-							<%}
-								%>
-							</select>
-						</div> --%>
+						<input type="hidden" name="empId"  value="<%=empId%>">
+					
 
 						<div class="form-group">
 							<label for="basicPay">BASIC PAY:</label><input type="text"
 								class="form-control" name="basicPay" required
-								id="basicPay">
+								id="basicPay" autofocus>
 						</div>
                         <div class="form-group">
 							<label for="hra">HRA:</label><input type="text"

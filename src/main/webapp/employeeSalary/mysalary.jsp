@@ -15,34 +15,31 @@
 	<div class="container">
 		<%
 			EmployeeSalaryDetails mySalary = (EmployeeSalaryDetails) request.getAttribute("MY_SALARY_LIST");
-
 		%>
 
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-12">
 				<div class="portlet-title">
 					<div class="page-header">
-						<h4>My Salary Details</h4>
+						<h4>
+							My Salary Details -
+							<%=mySalary.getEmployee().getName()%></h4>
 					</div>
 				</div>
-				<div class="portlet-body">
+			</div>
+		</div>
+		<div class="row">
+
+			<div class="portlet-body">
+				<div class="col-md-4">
 					<div class="table-responsive">
 						<table class="table table-bordered">
 
 							<tbody>
 								<%
-									int i = 1;
 									if (mySalary != null) {
-										{
 								%>
-								<tr>
-									<th>S.NO</th>
-									<td><%=i++%></td>
-								</tr>
-								<tr>
-									<th>EMPLOYEE NAME</th>
-									<td><%=mySalary.getEmpId().getId()%></td>
-								</tr>
+
 								<tr>
 									<th>BASIC PAY</th>
 									<td><%=mySalary.getBasicPay()%></td>
@@ -61,20 +58,48 @@
 								</tr>
 								<tr>
 									<th>MEDICAL INSURANCE</th>
-									<td><%=mySalary.getMedicalInsurance() %></td>
+									<td><%=mySalary.getMedicalInsurance()%></td>
 								</tr>
+
+								<tr class="success">
+									<th>TOTAL EARNINGS</th>
+									<th>&#8377; <%=mySalary.getTotalEarnings()%></th>
+								</tr>
+
+								<%
+									}
+								%>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+
+							<tbody>
+								<%
+									if (mySalary != null) {
+								%>
+
 								<tr>
 									<th>PROVIDENT FUND</th>
 									<td><%=mySalary.getProvidentFund()%></td>
 								</tr>
 								<tr>
 									<th>INCOME TAX</th>
-									<td><%=mySalary.getIncomeTax()%></td>	
+									<td><%=mySalary.getIncomeTax()%></td>
 								</tr>
-								
-									
 
-								<%}} %>
+								<tr class="success">
+									<th>TOTAL DEDUCTIONS</th>
+									<th>&#8377; <%=mySalary.getTotalDeductions()%></th>
+								</tr>
+
+								<%
+									}
+								%>
 							</tbody>
 						</table>
 
@@ -84,6 +109,8 @@
 			</div>
 
 		</div>
+
+	</div>
 	</div>
 
 
